@@ -3,8 +3,6 @@ const stocksController = require('../controllers/stocks')
 
 const router = express.Router()
 
-router
-  .route('/:id')
-  .get(stocksController.getStocks)
+router.route('/:id').get(stocksController.getStocks)
 
 module.exports = router
