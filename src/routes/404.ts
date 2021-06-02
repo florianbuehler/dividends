@@ -1,4 +1,4 @@
-﻿const express = require('express')
+﻿import * as express from 'express'
 
 const router = express.Router()
 
@@ -6,4 +6,4 @@ router.all('*', (req, res) => {
   res.sendStatus(404)
 })
 
-module.exports = router
+export default router

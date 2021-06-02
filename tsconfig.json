@@ -1,0 +1,32 @@
+﻿{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "*": [
+        "node_modules/*"
+      ]
+    },
+    "target": "es5",
+    "lib": ["es2017", "dom"],
+    "types": [
+      "express"
+    ],
+    "typeRoots" : [
+      "node_modules/@types/"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "isolatedModules": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noImplicitAny": true,
+    "preserveConstEnums": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "outDir": "dist",
+    "sourceMap": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

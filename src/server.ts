@@ -1,9 +1,9 @@
-﻿const express = require('express')
-const bodyParser = require('body-parser')
+﻿import * as express from 'express'
+import * as bodyParser from 'body-parser'
 
 // routes
-const stockRoutes = require('./routes/stocks')
-const noMatchRoute = require('./routes/404')
+import stockRoutes from './routes/stocks'
+import noMatchRoute from './routes/404'
 
 // create an instance of express to serve our end points
 const app = express()
