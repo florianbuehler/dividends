@@ -28,7 +28,7 @@ class StockService implements IStockService {
   getStock = async (isin: string): Promise<void> => {
     const stock = await this._stockRepositoryService.getStock(isin)
 
-    console.log(stock)
+    console.log(stock.dividends[0].payDate.getFullYear())
   }
 
   addStock = async (isin: string): Promise<void> => {
@@ -36,7 +36,7 @@ class StockService implements IStockService {
 
     const dividends = dividendInformation.dividends.map(
       (dividend) =>
-        new Dividend(dividend.id, dividend.exDate, dividend.payDate, new Money(dividend.amount, dividend.currency))
+        new Dividend(dividend.id, new Date(dividend.exDate), new Date(dividend.payDate), new Money(dividend.amount, dividend.currency))
     )
 
     const stock = new Stock(

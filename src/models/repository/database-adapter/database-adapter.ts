@@ -7,6 +7,6 @@ export interface IDatabaseAdapterService {
   upsertItemInCollection<DocumentType>(
     item: DocumentType,
     collectionName: string,
-    query: Record<string, unknown>
+    query?: Record<string, unknown>
   ): Promise<void>
 }

@@ -16,6 +16,14 @@ class Stock {
     this.exchange = exchange
     this.dividends = dividends
   }
+
+  hasDividendStreak(numOfYears: number): boolean {
+    return false
+  }
+  
+  // dividendsForYear(year: number) {
+  //   this.dividends.filter(dividend => dividend.)
+  // }
 }
 
 export default Stock
