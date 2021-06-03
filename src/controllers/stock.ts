@@ -5,7 +5,9 @@ import InversifyTypes from '../inversify.types'
 
 export interface IStockController {
   getStock(req: any, res: any): Promise<void>
-  getStocks(req: any, res: any): void
+  getStocks(req: any, res: any): Promise<void>
+  
+  addStock(req: any, res: any): Promise<void>
 }
 
 @injectable()
@@ -17,10 +19,22 @@ export class StockController implements IStockController {
   }
 
   getStock = async (req: any, res: any): Promise<void> => {
-    res.json(await this._stockService.getStock('abc'))
+    const {isin} = req.params
+    
+    res.json(await this._stockService.getStock(isin))
   }
 
-  getStocks(req: any, res: any) {
-    res.json({ hello: 'world2' })
+  getStocks = async (req: any, res: any): Promise<void> => {
+    res.json(await this._stockService.getStock('abc'))
+  }
+  
+  addStock = async (req: any, res: any): Promise<void> => {
+    const {isin} = req.params
+    
+    try {
+      res.json(await this._stockService.addStock(isin))
+    } catch (e) {
+      res.sendStatus(500)
+    }
   }
 }

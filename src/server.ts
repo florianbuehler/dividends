@@ -2,7 +2,7 @@
 import * as bodyParser from 'body-parser'
 
 // routes
-import stockRoutes from './routes/stocks'
+import stockRoutes from './routes/stock'
 import noMatchRoute from './routes/404'
 
 // create an instance of express to serve our end points

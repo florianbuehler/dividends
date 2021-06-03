@@ -6,7 +6,8 @@ import { IStockController } from '../controllers/stock'
 const stockRouter = express.Router()
 const stockController = container.get<IStockController>(InversifyTypes.IStockController)
 
-stockRouter.route('/:id').get(stockController.getStock)
 stockRouter.route('/').get(stockController.getStocks)
+
+stockRouter.route('/:isin').get(stockController.getStock).post(stockController.addStock)
 
 export default stockRouter
