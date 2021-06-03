@@ -1,5 +1,5 @@
-﻿import { DividendStock } from './types'
+import { DividendInformation } from './types'
 
 export interface IDividendDataAdapter {
-  getDividendData(isin: string): Promise<DividendStock>
+  getDividendData(isin: string): Promise<DividendInformation>
 }

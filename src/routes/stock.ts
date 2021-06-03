@@ -1,4 +1,4 @@
-﻿import * as express from 'express'
+import * as express from 'express'
 import container from '../inversify.config'
 import InversifyTypes from '../inversify.types'
 import { IStockController } from '../controllers/stock'

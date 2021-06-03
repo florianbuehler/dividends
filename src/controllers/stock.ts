@@ -1,4 +1,4 @@
-﻿import 'reflect-metadata'
+import 'reflect-metadata'
 import { injectable, inject } from 'inversify'
 import { IStockService } from '../services/stock'
 import InversifyTypes from '../inversify.types'

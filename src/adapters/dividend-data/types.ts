@@ -1,4 +1,4 @@
-﻿export type Dividend = {
+export type Dividend = {
   id: number
   exDate: string
   payDate: string
@@ -6,7 +6,7 @@
   currency: string
 }
 
-export type DividendStock = {
+export type DividendInformation = {
   name: string
   symbol: string
   isin: string
