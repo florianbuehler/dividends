@@ -13,7 +13,7 @@ export interface IStockService {
 }
 
 @injectable()
-export class StockService implements IStockService {
+class StockService implements IStockService {
   private readonly _dividendDataAdapter: IDividendDataAdapter
   private readonly _stockRepositoryService: IStockRepositoryService
 
@@ -51,3 +51,5 @@ export class StockService implements IStockService {
     await this._stockRepositoryService.addStock(stock)
   }
 }
+
+export default StockService

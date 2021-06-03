@@ -12,7 +12,7 @@ export interface IStockRepositoryService {
 }
 
 @injectable()
-export class StockRepositoryService implements IStockRepositoryService {
+class StockRepositoryService implements IStockRepositoryService {
   private readonly _databaseAdapterService: IDatabaseAdapterService
 
   private readonly stocksCollectionName = 'stocks'
@@ -51,3 +51,5 @@ export class StockRepositoryService implements IStockRepositoryService {
     await this._databaseAdapterService.upsertItemInCollection(stock, this.stocksCollectionName, query)
   }
 }
+
+export default StockRepositoryService

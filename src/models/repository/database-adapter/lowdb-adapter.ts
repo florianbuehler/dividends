@@ -9,7 +9,7 @@ export interface DbSchema {
 }
 
 @injectable()
-export class LowDbAdapterService implements IDatabaseAdapterService {
+class LowDbAdapterService implements IDatabaseAdapterService {
   private readonly databaseFile: string
 
   constructor(databaseFile: string) {
@@ -47,3 +47,5 @@ export class LowDbAdapterService implements IDatabaseAdapterService {
     return low(adapter)
   }
 }
+
+export default LowDbAdapterService

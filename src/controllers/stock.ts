@@ -11,7 +11,7 @@ export interface IStockController {
 }
 
 @injectable()
-export class StockController implements IStockController {
+class StockController implements IStockController {
   private _stockService: IStockService
 
   constructor(@inject(InversifyTypes.IStockService) stockService: IStockService) {
@@ -38,3 +38,5 @@ export class StockController implements IStockController {
     }
   }
 }
+
+export default StockController

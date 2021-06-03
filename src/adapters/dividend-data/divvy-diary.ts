@@ -4,7 +4,7 @@ import { IDividendDataAdapter } from './dividend-data-adapter'
 import { DividendInformation } from './types'
 
 @injectable()
-export class DivvyDiary implements IDividendDataAdapter {
+class DivvyDiary implements IDividendDataAdapter {
   private static BASEURL = 'https://api.divvydiary.com'
 
   getDividendData = async (isin: string): Promise<DividendInformation> => {
@@ -18,3 +18,5 @@ export class DivvyDiary implements IDividendDataAdapter {
     }
   }
 }
+
+export default DivvyDiary
