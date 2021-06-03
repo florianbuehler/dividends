@@ -1,10 +1,10 @@
 import { Container, interfaces } from 'inversify'
 import InversifyTypes from './inversify.types'
-import StockController, { IStockController } from './controllers/stock'
-import StockService, { IStockService } from './services/stock'
+import StockController, { IStockController } from './controllers/stock.controller'
+import StockService, { IStockService } from './services/stock.service'
 import DivvyDiary from './adapters/dividend-data/divvy-diary'
 import { IDividendDataAdapter } from './adapters/dividend-data/dividend-data-adapter'
-import StockRepositoryService, { IStockRepositoryService } from './models/repository/stock'
+import StockRepositoryService, { IStockRepositoryService } from './models/repository/stock.repository'
 import LowDbAdapterService from './models/repository/database-adapter/lowdb-adapter'
 import { IDatabaseAdapterService } from './models/repository/database-adapter/database-adapter'
 

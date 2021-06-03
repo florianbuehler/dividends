@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify'
 import InversifyTypes from '../inversify.types'
 import { IDividendDataAdapter } from '../adapters/dividend-data/dividend-data-adapter'
-import { IStockRepositoryService } from '../models/repository/stock'
+import { IStockRepositoryService } from '../models/repository/stock.repository'
 import Stock from '../models/stock'
 import Dividend from '../models/dividend'
 import Money from '../models/money'
