@@ -10,7 +10,8 @@
     "target": "es5",
     "lib": ["es2017", "dom"],
     "types": [
-      "express"
+      "express",
+      "inversify"
     ],
     "typeRoots" : [
       "node_modules/@types/"

@@ -22,10 +22,16 @@
   "homepage": "https://github.com/florianbuehler/dividends#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "inversify": "^4.13.0",
+    "inversify-binding-decorators": "^3.1.0",
+    "inversify-express-utils": "^4.2.2",
+    "inversify-inject-decorators": "^3.1.0",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
+    "@types/inversify": "^2.0.33",
     "nodemon": "^2.0.7",
     "eslint": "^7.18.0",
     "eslint-config-prettier": "^7.2.0",
