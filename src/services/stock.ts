@@ -5,11 +5,9 @@ export interface IStockService {
 }
 
 @injectable()
-export class StockService implements IStockService{
-  constructor() {
-    
-  }
-  
+export class StockService implements IStockService {
+  constructor() {}
+
   getStock = (isin: string): Promise<string> => {
     return new Promise<string>((resolve, reject) => {
       resolve(`The isin is ${isin}`)
