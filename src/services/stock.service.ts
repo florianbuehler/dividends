@@ -7,9 +7,11 @@ import Dividend from '../models/dividend'
 import Money from '../models/money'
 import DtoStockInformation from './stock-information.dto'
 import { IStockPriceAdapter } from '../adapters/stock-price/stock-price-adapter'
+import DtoStock from './stock.dto'
+import DtoDividend from './dividend.dto'
 
 export interface IStockService {
-  getStock(isin: string): Promise<void>
+  getStock(isin: string): Promise<DtoStock>
   getStocks(minYearsOfNotLoweringTheDividend?: number): Promise<DtoStockInformation[]>
 
   addStock(isin: string): Promise<void>
@@ -31,10 +33,10 @@ class StockService implements IStockService {
     this._stockRepositoryService = stockRepositoryService
   }
 
-  getStock = async (isin: string): Promise<void> => {
+  getStock = async (isin: string): Promise<DtoStock> => {
     const stock = await this._stockRepositoryService.getStock(isin)
 
-    console.log(stock.getDividendYield())
+    return this.toDtoStock(stock)
   }
 
   getStocks = async (minYearsOfNotLoweringTheDividend?: number): Promise<DtoStockInformation[]> => {
@@ -76,7 +78,26 @@ class StockService implements IStockService {
       stock.symbol,
       stock.isin,
       stock.wkn,
-      stock.yearsOfNotLoweringTheDividend()
+      stock.yearsOfNotLoweringTheDividend(),
+      stock.getDividendYield()
+    )
+  }
+
+  private toDtoDividend = (dividend: Dividend): DtoDividend => {
+    return new DtoDividend(dividend.payDate, dividend.amount)
+  }
+
+  private toDtoStock = (stock: Stock): DtoStock => {
+    const dividends = stock.dividends.map((dividend) => this.toDtoDividend(dividend))
+
+    return new DtoStock(
+      stock.name,
+      stock.symbol,
+      stock.isin,
+      stock.wkn,
+      stock.yearsOfNotLoweringTheDividend(),
+      stock.getDividendYield(),
+      dividends
     )
   }
 }

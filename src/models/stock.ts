@@ -38,7 +38,7 @@ class Stock {
 
   yearsOfNotLoweringTheDividend(): number {
     let currentYear = Stock.baseYear
-    let payedDividendsCurrentYear = this.getDividendsForYear(currentYear)
+    let payedDividendsCurrentYear = this.getDividendsForYear(currentYear).value
 
     if (!payedDividendsCurrentYear) {
       return 0
@@ -48,7 +48,7 @@ class Stock {
 
     while (true) {
       const lastYear = currentYear - 1
-      const payedDividendsLastYear = this.getDividendsForYear(lastYear)
+      const payedDividendsLastYear = this.getDividendsForYear(lastYear).value
 
       if (!payedDividendsLastYear) {
         return yearsOfNotLowering + 1
