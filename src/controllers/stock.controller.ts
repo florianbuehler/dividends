@@ -25,7 +25,7 @@ class StockController implements IStockController {
   }
 
   getStocks = async (req: any, res: any): Promise<void> => {
-    res.json(await this._stockService.getStock('abc'))
+    res.json(await this._stockService.getStocks())
   }
 
   addStock = async (req: any, res: any): Promise<void> => {
