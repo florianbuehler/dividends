@@ -45,7 +45,7 @@ class StockService implements IStockService {
 
   addStock = async (isin: string): Promise<void> => {
     const dividendInformation = await this._dividendDataAdapter.getDividendData(isin)
-    const stockPrice = await this._stockPriceAdapter.getStockPrice(dividendInformation.symbol)
+    const stockPrice = await this._stockPriceAdapter.getStockPrice(dividendInformation.symbol, dividendInformation.isin)
 
     const dividends = dividendInformation.dividends.map(
       (dividend) =>
