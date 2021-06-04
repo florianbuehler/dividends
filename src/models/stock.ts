@@ -2,6 +2,8 @@
 import Money from './money'
 
 class Stock {
+  static baseYear = 2020 // Todo this is only a hack for now
+
   name: string
   symbol: string
   isin: string
@@ -26,11 +28,17 @@ class Stock {
     this.exchange = exchange
     this.price = price
     this.dividends = dividends
+
+    this.dividends.forEach((dividend) => {
+      if (dividend.amount.currency !== price.currency) {
+        throw new Error('Different currencies for dividends and stock price!')
+      }
+    })
   }
 
   yearsOfNotLoweringTheDividend(): number {
-    let currentYear = 2020 // Todo this is only a hack for now
-    let payedDividendsCurrentYear = this.dividendsForYear(currentYear)
+    let currentYear = Stock.baseYear
+    let payedDividendsCurrentYear = this.getDividendsForYear(currentYear)
 
     if (!payedDividendsCurrentYear) {
       return 0
@@ -40,7 +48,7 @@ class Stock {
 
     while (true) {
       const lastYear = currentYear - 1
-      const payedDividendsLastYear = this.dividendsForYear(lastYear)
+      const payedDividendsLastYear = this.getDividendsForYear(lastYear)
 
       if (!payedDividendsLastYear) {
         return yearsOfNotLowering + 1
@@ -58,9 +66,16 @@ class Stock {
     return yearsOfNotLowering
   }
 
-  dividendsForYear(year: number) {
-    const dividendsOfYear = this.dividends.filter((dividend) => dividend.payDate.getFullYear() === year)
-    return dividendsOfYear.reduce((current, dividend) => current + (dividend.amount.value || 0), 0)
+  getDividendYield(): number {
+    return this.getDividendsForYear(Stock.baseYear).value / this.price.value
+  }
+
+  getDividendsForYear(year: number): Money {
+    const dividendsOfYear = this.dividends
+      .filter((dividend) => dividend.payDate.getFullYear() === year)
+      .reduce((current, dividend) => current + (dividend.amount.value || 0), 0)
+
+    return new Money(dividendsOfYear, this.price.currency)
   }
 }
 

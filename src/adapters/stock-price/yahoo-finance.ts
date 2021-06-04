@@ -8,11 +8,15 @@ class YahooFinance implements IStockPriceAdapter {
   private static BASEURL = 'https://query1.finance.yahoo.com/v8/finance/chart'
 
   getStockPrice = async (symbol: string, isin: string): Promise<Money> => {
-    const res = await fetch(`${YahooFinance.BASEURL}/${this.getQuerySymbol(symbol, isin)}`)
-    const body = await res.json()
-    const meta = body.chart.result[0].meta
+    try {
+      const res = await fetch(`${YahooFinance.BASEURL}/${this.getQuerySymbol(symbol, isin)}`)
+      const body = await res.json()
+      const meta = body.chart.result[0].meta
 
-    return new Money(meta.regularMarketPrice, meta.currency)
+      return new Money(meta.regularMarketPrice, meta.currency)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   private getQuerySymbol = (symbol: string, isin: string): string => {

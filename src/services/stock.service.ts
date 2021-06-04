@@ -34,7 +34,7 @@ class StockService implements IStockService {
   getStock = async (isin: string): Promise<void> => {
     const stock = await this._stockRepositoryService.getStock(isin)
 
-    console.log(stock.price)
+    console.log(stock.getDividendYield())
   }
 
   getStocks = async (minYearsOfNotLoweringTheDividend?: number): Promise<DtoStockInformation[]> => {
