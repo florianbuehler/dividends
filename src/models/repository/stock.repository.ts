@@ -59,7 +59,15 @@ class StockRepositoryService implements IStockRepositoryService {
         )
     )
 
-    return new Stock(dboStock.name, dboStock.symbol, dboStock.isin, dboStock.wkn, dboStock.exchange, dividends)
+    return new Stock(
+      dboStock.name,
+      dboStock.symbol,
+      dboStock.isin,
+      dboStock.wkn,
+      dboStock.exchange,
+      dboStock.price,
+      dividends
+    )
   }
 }
 

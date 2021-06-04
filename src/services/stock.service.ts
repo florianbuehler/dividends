@@ -6,6 +6,7 @@ import Stock from '../models/stock'
 import Dividend from '../models/dividend'
 import Money from '../models/money'
 import DtoStockInformation from './stock-information.dto'
+import { IStockPriceAdapter } from '../adapters/stock-price/stock-price-adapter'
 
 export interface IStockService {
   getStock(isin: string): Promise<void>
@@ -17,30 +18,34 @@ export interface IStockService {
 @injectable()
 class StockService implements IStockService {
   private readonly _dividendDataAdapter: IDividendDataAdapter
+  private readonly _stockPriceAdapter: IStockPriceAdapter
   private readonly _stockRepositoryService: IStockRepositoryService
 
   constructor(
     @inject(InversifyTypes.IDividendDataAdapter) dividendDataAdapter: IDividendDataAdapter,
+    @inject(InversifyTypes.IStockPriceAdapter) stockPriceAdapter: IStockPriceAdapter,
     @inject(InversifyTypes.IStockRepositoryService) stockRepositoryService: IStockRepositoryService
   ) {
     this._dividendDataAdapter = dividendDataAdapter
+    this._stockPriceAdapter = stockPriceAdapter
     this._stockRepositoryService = stockRepositoryService
   }
 
   getStock = async (isin: string): Promise<void> => {
     const stock = await this._stockRepositoryService.getStock(isin)
 
-    console.log(stock.yearsOfNotLoweringTheDividend())
+    console.log(stock.price)
   }
 
   getStocks = async (minYearsOfNotLoweringTheDividend?: number): Promise<DtoStockInformation[]> => {
     const stocks = await this._stockRepositoryService.getStocks()
 
-    return stocks.map((stock) => this.toDto(stock))
+    return stocks.map((stock) => this.toDtoStockInformation(stock))
   }
 
   addStock = async (isin: string): Promise<void> => {
     const dividendInformation = await this._dividendDataAdapter.getDividendData(isin)
+    const stockPrice = await this._stockPriceAdapter.getStockPrice(dividendInformation.symbol)
 
     const dividends = dividendInformation.dividends.map(
       (dividend) =>
@@ -58,13 +63,14 @@ class StockService implements IStockService {
       dividendInformation.isin,
       dividendInformation.wkn,
       dividendInformation.exchange,
+      stockPrice,
       dividends
     )
 
     await this._stockRepositoryService.addStock(stock)
   }
 
-  private toDto = (stock: Stock): DtoStockInformation => {
+  private toDtoStockInformation = (stock: Stock): DtoStockInformation => {
     return new DtoStockInformation(
       stock.name,
       stock.symbol,
