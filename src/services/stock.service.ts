@@ -14,6 +14,8 @@ export interface IStockService {
   getStock(isin: string): Promise<DtoStock>
   getStocks(minYearsOfNotLoweringTheDividend?: number): Promise<DtoStockInformation[]>
 
+  getIsins(): Promise<string[]>
+  
   addStock(isin: string): Promise<void>
 }
 
@@ -45,6 +47,12 @@ class StockService implements IStockService {
     return stocks.map((stock) => this.toDtoStockInformation(stock))
   }
 
+  getIsins = async (): Promise<string[]> => {
+    const stocks = await this._stockRepositoryService.getStocks()
+    
+    return stocks.map((stock) => stock.isin)
+  }
+  
   addStock = async (isin: string): Promise<void> => {
     const dividendInformation = await this._dividendDataAdapter.getDividendData(isin)
     const stockPrice = await this._stockPriceAdapter.getStockPrice(dividendInformation.symbol, dividendInformation.isin)
