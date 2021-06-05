@@ -12,10 +12,10 @@ import DtoDividend from './dividend.dto'
 
 export interface IStockService {
   getStock(isin: string): Promise<DtoStock>
-  getStocks(minYearsOfNotLoweringTheDividend?: number): Promise<DtoStockInformation[]>
+  getStocks(minYearsOfNotLoweringTheDividend?: number, minDividendYield?: number): Promise<DtoStockInformation[]>
 
   getIsins(): Promise<string[]>
-  
+
   addStock(isin: string): Promise<void>
 }
 
@@ -41,18 +41,29 @@ class StockService implements IStockService {
     return this.toDtoStock(stock)
   }
 
-  getStocks = async (minYearsOfNotLoweringTheDividend?: number): Promise<DtoStockInformation[]> => {
-    const stocks = await this._stockRepositoryService.getStocks()
+  getStocks = async (
+    minYearsOfNotLoweringTheDividend?: number,
+    minDividendYield?: number
+  ): Promise<DtoStockInformation[]> => {
+    let stocks = await this._stockRepositoryService.getStocks()
+
+    if (minYearsOfNotLoweringTheDividend) {
+      stocks = stocks.filter((stock) => stock.yearsOfNotLoweringTheDividend() >= minYearsOfNotLoweringTheDividend)
+    }
+
+    if (minDividendYield) {
+      stocks = stocks.filter((stock) => stock.getDividendYield() >= minDividendYield)
+    }
 
     return stocks.map((stock) => this.toDtoStockInformation(stock))
   }
 
   getIsins = async (): Promise<string[]> => {
     const stocks = await this._stockRepositoryService.getStocks()
-    
+
     return stocks.map((stock) => stock.isin)
   }
-  
+
   addStock = async (isin: string): Promise<void> => {
     const dividendInformation = await this._dividendDataAdapter.getDividendData(isin)
     const stockPrice = await this._stockPriceAdapter.getStockPrice(dividendInformation.symbol, dividendInformation.isin)

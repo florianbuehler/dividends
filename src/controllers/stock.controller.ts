@@ -3,12 +3,12 @@ import { injectable, inject } from 'inversify'
 import { IStockService } from '../services/stock.service'
 import InversifyTypes from '../inversify.types'
 
-export interface IStockController {  
+export interface IStockController {
   getStock(req: any, res: any): Promise<void>
   getStocks(req: any, res: any): Promise<void>
 
   getIsins(req: any, res: any): Promise<void>
-  
+
   addStock(req: any, res: any): Promise<void>
 }
 
@@ -27,9 +27,12 @@ class StockController implements IStockController {
   }
 
   getStocks = async (req: any, res: any): Promise<void> => {
-    res.json(await this._stockService.getStocks())
+    const minYearsOfNotLoweringTheDividend = req.query.years
+    const minDividendYield = req.query.yield
+
+    res.json(await this._stockService.getStocks(minYearsOfNotLoweringTheDividend, minDividendYield))
   }
-  
+
   getIsins = async (req: any, res: any): Promise<void> => {
     res.json(await this._stockService.getIsins())
   }
