@@ -11,9 +11,10 @@ class DtoStock extends DtoStockInformation {
     wkn: string,
     yearsOfNotLoweringTheDividend: number,
     dividendYield: number,
+    avgThreeYearDividendGrowth: number,
     dividends: DtoDividend[]
   ) {
-    super(name, symbol, isin, wkn, yearsOfNotLoweringTheDividend, dividendYield)
+    super(name, symbol, isin, wkn, yearsOfNotLoweringTheDividend, dividendYield, avgThreeYearDividendGrowth)
 
     this.dividends = dividends
   }

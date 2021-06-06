@@ -66,7 +66,7 @@ class Stock {
     return yearsOfNotLowering
   }
 
-  getDividendYield(): number {
+  getCurrentDividendYield(): number {
     return this.getDividendsForYear(Stock.baseYear).value / this.price.value
   }
 
@@ -76,6 +76,17 @@ class Stock {
       .reduce((current, dividend) => current + (dividend.amount.value || 0), 0)
 
     return new Money(dividendsOfYear, this.price.currency)
+  }
+
+  getAvgDividendGrowth(year = 1): number {
+    const currentDividends = this.getDividendsForYear(Stock.baseYear).value
+    const baseDividends = this.getDividendsForYear(Stock.baseYear - year).value
+
+    if (!currentDividends || !baseDividends) {
+      return NaN
+    }
+
+    return Math.pow(currentDividends / baseDividends, 1 / year) - 1
   }
 }
 

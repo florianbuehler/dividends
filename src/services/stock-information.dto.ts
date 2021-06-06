@@ -5,6 +5,7 @@
   wkn: string
   yearsOfNotLoweringTheDividend: number
   dividendYield: number
+  avgThreeYearDividendGrowth: number
 
   constructor(
     name: string,
@@ -12,7 +13,8 @@
     isin: string,
     wkn: string,
     yearsOfNotLoweringTheDividend: number,
-    dividendYield: number
+    dividendYield: number,
+    avgThreeYearDividendGrowth: number
   ) {
     this.name = name
     this.symbol = symbol
@@ -20,6 +22,7 @@
     this.wkn = wkn
     this.yearsOfNotLoweringTheDividend = yearsOfNotLoweringTheDividend
     this.dividendYield = dividendYield
+    this.avgThreeYearDividendGrowth = avgThreeYearDividendGrowth
   }
 }
 

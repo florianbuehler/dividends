@@ -52,7 +52,7 @@ class StockService implements IStockService {
     }
 
     if (minDividendYield) {
-      stocks = stocks.filter((stock) => stock.getDividendYield() >= minDividendYield)
+      stocks = stocks.filter((stock) => stock.getCurrentDividendYield() >= minDividendYield)
     }
 
     return stocks.map((stock) => this.toDtoStockInformation(stock))
@@ -98,7 +98,8 @@ class StockService implements IStockService {
       stock.isin,
       stock.wkn,
       stock.yearsOfNotLoweringTheDividend(),
-      stock.getDividendYield()
+      stock.getCurrentDividendYield(),
+      stock.getAvgDividendGrowth(3)
     )
   }
 
@@ -115,7 +116,8 @@ class StockService implements IStockService {
       stock.isin,
       stock.wkn,
       stock.yearsOfNotLoweringTheDividend(),
-      stock.getDividendYield(),
+      stock.getCurrentDividendYield(),
+      stock.getAvgDividendGrowth(3),
       dividends
     )
   }
