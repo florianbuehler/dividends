@@ -9,6 +9,7 @@ import DtoStockInformation from './stock-information.dto'
 import { IStockPriceAdapter } from '../adapters/stock-price/stock-price-adapter'
 import DtoStock from './stock.dto'
 import DtoDividend from './dividend.dto'
+import DtoDividendInformation from './dividend-information.dto'
 
 export interface IStockService {
   getStock(isin: string): Promise<DtoStock>
@@ -97,14 +98,22 @@ class StockService implements IStockService {
       stock.symbol,
       stock.isin,
       stock.wkn,
-      stock.yearsOfNotLoweringTheDividend(),
-      stock.getCurrentDividendYield(),
-      stock.getAvgDividendGrowth(3)
+      this.toDtoDividendInformation(stock)
     )
   }
 
   private toDtoDividend = (dividend: Dividend): DtoDividend => {
     return new DtoDividend(dividend.payDate, dividend.amount)
+  }
+
+  private toDtoDividendInformation = (stock: Stock): DtoDividendInformation => {
+    return new DtoDividendInformation(
+      stock.yearsOfNotLoweringTheDividend(),
+      stock.getCurrentDividendYield(),
+      stock.getAvgDividendGrowth(1),
+      stock.getAvgDividendGrowth(3),
+      stock.getAvgDividendGrowth(5)
+    )
   }
 
   private toDtoStock = (stock: Stock): DtoStock => {
@@ -115,9 +124,7 @@ class StockService implements IStockService {
       stock.symbol,
       stock.isin,
       stock.wkn,
-      stock.yearsOfNotLoweringTheDividend(),
-      stock.getCurrentDividendYield(),
-      stock.getAvgDividendGrowth(3),
+      this.toDtoDividendInformation(stock),
       dividends
     )
   }

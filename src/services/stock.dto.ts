@@ -1,5 +1,6 @@
 ﻿import DtoStockInformation from './stock-information.dto'
 import DtoDividend from './dividend.dto'
+import DtoDividendInformation from './dividend-information.dto'
 
 class DtoStock extends DtoStockInformation {
   dividends: DtoDividend[]
@@ -9,12 +10,10 @@ class DtoStock extends DtoStockInformation {
     symbol: string,
     isin: string,
     wkn: string,
-    yearsOfNotLoweringTheDividend: number,
-    dividendYield: number,
-    avgThreeYearDividendGrowth: number,
+    dividendInformation: DtoDividendInformation,
     dividends: DtoDividend[]
   ) {
-    super(name, symbol, isin, wkn, yearsOfNotLoweringTheDividend, dividendYield, avgThreeYearDividendGrowth)
+    super(name, symbol, isin, wkn, dividendInformation)
 
     this.dividends = dividends
   }
