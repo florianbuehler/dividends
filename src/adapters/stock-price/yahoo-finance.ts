@@ -26,6 +26,9 @@ class YahooFinance implements IStockPriceAdapter {
       case 'DE':
         postfix = 'DE'
         break
+      case 'US':
+        postfix = ''
+        break
       default:
         postfix = ''
     }
